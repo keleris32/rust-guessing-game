@@ -1,17 +1,16 @@
+use colored::*;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
 
 fn main() {
-    println!("Guess a number from 1 - 101 to win!");
+    println!("Guess a number from 1 - 5 to win!");
 
-    // define a secret number and assign a random value from range 1 - 101
-    let secret_number = rand::thread_rng().gen_range(1, 101);
-
-    println!("The secret number is: {}", secret_number);
+    // define a secret number and assign a random value from range 1 - 5
+    let secret_number = rand::thread_rng().gen_range(1, 5);
 
     loop {
-        println!("Input your guess:");
+        println!("{}", "Input your guess:".blue());
 
         // define an empty string
         let mut guess = String::new();
@@ -28,19 +27,18 @@ fn main() {
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
             Err(_) => {
-                println!("Warning: Please enter a number!");
+                println!("{}", "Warning: Please enter a number!".red());
                 continue;
             }
         };
 
-        println!("You guessed: {}", guess);
-
         // compare the user's guess to the secret number
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Your guess is too small!"),
-            Ordering::Greater => println!("Your guess is too big!"),
+            Ordering::Less => println!("{}", "Your guess is too small!".red()),
+            Ordering::Greater => println!("{}", "Your guess is too big!".red()),
             Ordering::Equal => {
-                println!("You win! Your guess is correct.");
+                println!("{}", "You win! Your guess is correct.".green());
+                println!("The secret number was: {}", secret_number);
                 break;
             }
         }
