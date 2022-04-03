@@ -1,8 +1,8 @@
-## Guessing Game
+# Guessing Game
 
 The aim of this program is to guess the correct answer from a range of 1 - 5. The program would continue looping till the user guesses the correct number.
 
-# Getting Started
+## Getting Started
 
 To start make sure you have `rust` and `cargo` installed. You can confirm this by running the following commands:
 
