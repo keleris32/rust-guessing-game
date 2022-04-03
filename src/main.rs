@@ -10,25 +10,39 @@ fn main() {
 
     println!("The secret number is: {}", secret_number);
 
-    println!("Please input your guess:");
+    loop {
+        println!("Input your guess:");
 
-    // define an empty string
-    let mut guess = String::new();
+        // define an empty string
+        let mut guess = String::new();
 
-    // read the standard input entered by the user and assign buffer to guess variable
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line!");
+        // read the standard input entered by the user and assign buffer to guess variable
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Failed to read line!");
 
-    // trim whitespace from guess and parse it to an integer of type u32
-    let guess: u32 = guess.trim().parse().expect("Please type in a number!");
+        // trim whitespace from guess and parse it to an integer of type u32
+        // compare the result gotten while trying to parse the user's input
+        // if the parse is successful then return the parsed values
+        // if it isn't then print to the screen and continue to the next iteration!
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Warning: Please enter a number!");
+                continue;
+            }
+        };
 
-    println!("You guessed: {}", guess);
+        println!("You guessed: {}", guess);
 
-    // compare the user's guess to the secret number
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Your guess is too small!"),
-        Ordering::Greater => println!("Your guess is too big!"),
-        Ordering::Equal => println!("You win! Your guess is correct."),
+        // compare the user's guess to the secret number
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Your guess is too small!"),
+            Ordering::Greater => println!("Your guess is too big!"),
+            Ordering::Equal => {
+                println!("You win! Your guess is correct.");
+                break;
+            }
+        }
     }
 }
